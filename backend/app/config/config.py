@@ -1,7 +1,6 @@
 import os
 
 import yaml
-
 from app.common import logger
 
 

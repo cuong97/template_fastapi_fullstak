@@ -1,14 +1,13 @@
 from unittest import TestCase
 
-from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm.session import close_all_sessions
-
 from app.common.database import DBBaseCustom, get_db
 from app.config import settings
 from app.config.settings import setting
+from fastapi.testclient import TestClient
 from main import app
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.session import close_all_sessions
 
 setting.env = "local_test"
 env_yml = setting.get_config_env()

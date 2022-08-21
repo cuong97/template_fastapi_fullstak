@@ -1,8 +1,5 @@
 from datetime import timedelta
 
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-
 from app.common.database import get_db
 from app.common.handle_error import UnAuthorizedException
 from app.config.settings import EnvSettings
@@ -10,6 +7,8 @@ from app.crud.user_crud import user_crud
 from app.schemas.response import resp
 from app.schemas.user import Token, UserLogin
 from app.services.auth import authenticate_user, create_access_token
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
 auth_router = APIRouter()
 
@@ -20,7 +19,9 @@ async def login(data: UserLogin, db: Session = Depends(get_db)):
     user = authenticate_user(user_data, data.password)
     if not user:
         raise UnAuthorizedException(message="Incorrect username or password")
-    access_token_expires = timedelta(minutes=int(EnvSettings.access_token_expires_minutes))
+    access_token_expires = timedelta(
+        minutes=int(EnvSettings.access_token_expires_minutes)
+    )
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )

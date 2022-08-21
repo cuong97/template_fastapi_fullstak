@@ -9,19 +9,6 @@ cd template-fastapi
 ![Overall Architecture](images/ev.png)
 
 ## To do list
-- [x] Validate request using pydantic(built-in) (phongtt)
-- [x] Authentication using built-in jwt (linh)
-- [ ] Custom response model using built-in pydantic (tranhnv)
-- [x] Handle error exception (daocm)
-- [ ] Setup config get from os env (namvh)
-- [x] Testing and coverage using sqlalchemy (cuongtv)
-- [ ] Logging request params and db query (namvh)
-- [x] Custom built-in swagger with more information (dungnv)
-- [x] CORS setup (daocm)
-- [x] Install Pre-commit to setup convention (cuongtv)
-- [x] CORS setup (daocm)
-- [ ] Upload testcase to jira
-- [ ] Authorization base on Role
 
 # Requirements
 1. `>= Python 3.10`
@@ -54,9 +41,21 @@ ex: /Users/tranvancuong/Download/all.sql
 cd template-fastapi/
 python3.10 import_data.py -dir /Users/tranvancuong/Download/all.sql -host localhost -user root -pass 123456
 ```
+
+## Migration
+Create Migration
+```
+alembic revision --autogenerate -m "sample revision message"
+```
+Apply Migration
+```
+alembic upgrade head
+```
 ## Run dev server
 ```
 uvicorn main:app --reload
+or
+python3.10 main.py
 ```
 
 online doc address

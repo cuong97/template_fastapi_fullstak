@@ -1,8 +1,7 @@
-from sqlalchemy.orm import Session
-
 from app.crud.base_crud import CRUDBase
 from app.models.charger_model import ChargerModel
 from app.schemas.charger_model import ChargerModelCreate
+from sqlalchemy.orm import Session
 
 
 class ChargerModelCrud(

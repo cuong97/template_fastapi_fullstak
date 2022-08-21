@@ -1,5 +1,6 @@
-from app.common.database import SessionLocal
 import uuid
+
+from app.common.database import SessionLocal
 
 
 def validate_unique(table, field, **kwargs):

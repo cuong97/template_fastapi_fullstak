@@ -1,6 +1,7 @@
 import os
-from pydantic import BaseSettings
+
 from app.config import config
+from pydantic import BaseSettings
 
 
 class EnvSettings(BaseSettings):

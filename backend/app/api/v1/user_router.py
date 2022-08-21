@@ -1,12 +1,11 @@
-from fastapi import APIRouter, Depends, Security
-from sqlalchemy.orm import Session
-
 from app.common.database import get_db
 from app.crud.user_crud import user_crud
 from app.models.user import User
 from app.schemas.response import resp
 from app.schemas.user import UserCreate
 from app.services.auth import get_current_user, get_password_hash
+from fastapi import APIRouter, Depends, Security
+from sqlalchemy.orm import Session
 
 user_router = APIRouter()
 

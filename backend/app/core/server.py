@@ -1,11 +1,10 @@
-from fastapi import FastAPI, Request
-from fastapi.responses import JSONResponse
-from starlette.middleware.cors import CORSMiddleware
-
 from app.common.database import DBBaseCustom, engine
 from app.common.handle_error import APIException
 from app.config.settings import env_settings
 from app.router.v1_router import api_v1_router
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from starlette.middleware.cors import CORSMiddleware
 
 
 def create_app() -> FastAPI:

@@ -1,6 +1,5 @@
-from sqlalchemy import DATETIME, Column, String
-
 from app.common.database import DBBaseCustom
+from sqlalchemy import DATETIME, Column, String
 
 
 class User(DBBaseCustom):

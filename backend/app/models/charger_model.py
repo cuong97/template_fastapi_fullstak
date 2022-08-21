@@ -1,8 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy import Column, DateTime, String
-
 from app.common.database import DBBaseCustom
+from sqlalchemy import Column, DateTime, String
 
 
 class ChargerModel(DBBaseCustom):

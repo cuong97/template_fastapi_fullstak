@@ -1,5 +1,4 @@
 import factory.fuzzy
-
 from app.models.charger_model import ChargerModel
 from tests.base_test import SessionTest
 

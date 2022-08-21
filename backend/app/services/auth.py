@@ -1,16 +1,15 @@
 from datetime import datetime, timedelta
 from typing import Union
 
+from app.common import handle_error
+from app.common.database import get_db
+from app.config import settings
+from app.crud.user_crud import user_crud
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer, SecurityScopes
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
-
-from app.common import handle_error
-from app.common.database import get_db
-from app.config import settings
-from app.crud.user_crud import user_crud
 
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl=f"{settings.env_settings.api_prefix}/authentication/login"
@@ -56,7 +55,11 @@ def create_access_token(
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.EnvSettings.jwt_private_key, algorithm=settings.EnvSettings.jwt_algorithm)
+    encoded_jwt = jwt.encode(
+        to_encode,
+        settings.EnvSettings.jwt_private_key,
+        algorithm=settings.EnvSettings.jwt_algorithm,
+    )
     return encoded_jwt
 
 
@@ -69,7 +72,11 @@ async def get_current_user(
     This function is used for getting authenticated user.
     """
     try:
-        payload = jwt.decode(token, settings.EnvSettings.jwt_private_key, algorithms=[settings.EnvSettings.jwt_algorithm])
+        payload = jwt.decode(
+            token,
+            settings.EnvSettings.jwt_private_key,
+            algorithms=[settings.EnvSettings.jwt_algorithm],
+        )
         username: str = payload.get("sub")
         if username is None:
             raise handle_error.UnAuthorizedException()
@@ -78,7 +85,9 @@ async def get_current_user(
     user = await user_crud.get(db, username)
     if not user:
         raise handle_error.UnAuthenticatedException()
-    if security_scopes.scopes and (not user.role_name or user.role_name not in security_scopes.scopes):
+    if security_scopes.scopes and (
+        not user.role_name or user.role_name not in security_scopes.scopes
+    ):
         raise handle_error.UnAuthorizedException(
             message="Not enough permissions",
         )
