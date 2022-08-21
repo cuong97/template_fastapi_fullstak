@@ -6,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import close_all_sessions
 
 from backend.app.common.database import DBBaseCustom, get_db
+from backend.app.config import settings
 from backend.app.config.settings import setting
 from backend.main import app
 
@@ -25,6 +26,7 @@ def _get_test_db():
 class BaseTestCase(TestCase):
     app.dependency_overrides[get_db] = _get_test_db
     client = TestClient(app)
+    api_prefix = settings.EnvSettings.api_prefix
 
     def setUp(self):
         DBBaseCustom.metadata.create_all(bind=engine_test)

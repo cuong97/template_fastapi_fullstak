@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from backend.app.common.database import get_db
 from backend.app.common.handle_error import UnAuthorizedException
-from backend.app.config.settings import ACCESS_TOKEN_EXPIRE_MINUTES
+from backend.app.config.settings import EnvSettings
 from backend.app.crud.user_crud import user_crud
 from backend.app.schemas.response import resp
 from backend.app.schemas.user import Token, UserLogin
@@ -20,7 +20,7 @@ async def login(data: UserLogin, db: Session = Depends(get_db)):
     user = authenticate_user(user_data, data.password)
     if not user:
         raise UnAuthorizedException(message="Incorrect username or password")
-    access_token_expires = timedelta(minutes=int(ACCESS_TOKEN_EXPIRE_MINUTES))
+    access_token_expires = timedelta(minutes=int(EnvSettings.access_token_expires_minutes))
     access_token = create_access_token(
         data={"sub": user.username}, expires_delta=access_token_expires
     )
