@@ -5,10 +5,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import close_all_sessions
 
-from backend.app.common.database import DBBaseCustom, get_db
-from backend.app.config import settings
-from backend.app.config.settings import setting
-from backend.main import app
+from app.common.database import DBBaseCustom, get_db
+from app.config import settings
+from app.config.settings import setting
+from main import app
 
 setting.env = "local_test"
 env_yml = setting.get_config_env()

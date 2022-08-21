@@ -7,10 +7,10 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from backend.app.common import handle_error
-from backend.app.common.database import get_db
-from backend.app.config import settings
-from backend.app.crud.user_crud import user_crud
+from app.common import handle_error
+from app.common.database import get_db
+from app.config import settings
+from app.crud.user_crud import user_crud
 
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl=f"{settings.env_settings.api_prefix}/authentication/login"

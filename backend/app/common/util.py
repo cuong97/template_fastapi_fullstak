@@ -1,4 +1,4 @@
-from backend.app.common.database import SessionLocal
+from app.common.database import SessionLocal
 import uuid
 
 

@@ -2,7 +2,7 @@ import os
 
 import yaml
 
-from backend.app.common import logger
+from app.common import logger
 
 
 class ConfigReader:

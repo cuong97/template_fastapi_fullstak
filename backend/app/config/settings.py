@@ -1,6 +1,6 @@
 import os
 from pydantic import BaseSettings
-from backend.app.config import config
+from app.config import config
 
 
 class EnvSettings(BaseSettings):

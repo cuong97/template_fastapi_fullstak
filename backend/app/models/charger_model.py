@@ -2,7 +2,7 @@ from datetime import datetime
 
 from sqlalchemy import Column, DateTime, String
 
-from backend.app.common.database import DBBaseCustom
+from app.common.database import DBBaseCustom
 
 
 class ChargerModel(DBBaseCustom):

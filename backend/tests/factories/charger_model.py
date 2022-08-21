@@ -1,7 +1,7 @@
 import factory.fuzzy
 
-from backend.app.models.charger_model import ChargerModel
-from backend.tests.base_test import SessionTest
+from app.models.charger_model import ChargerModel
+from tests.base_test import SessionTest
 
 
 class ChargerModelFactory(factory.alchemy.SQLAlchemyModelFactory):

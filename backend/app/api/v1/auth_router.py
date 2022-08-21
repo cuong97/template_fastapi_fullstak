@@ -3,13 +3,13 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from backend.app.common.database import get_db
-from backend.app.common.handle_error import UnAuthorizedException
-from backend.app.config.settings import EnvSettings
-from backend.app.crud.user_crud import user_crud
-from backend.app.schemas.response import resp
-from backend.app.schemas.user import Token, UserLogin
-from backend.app.services.auth import authenticate_user, create_access_token
+from app.common.database import get_db
+from app.common.handle_error import UnAuthorizedException
+from app.config.settings import EnvSettings
+from app.crud.user_crud import user_crud
+from app.schemas.response import resp
+from app.schemas.user import Token, UserLogin
+from app.services.auth import authenticate_user, create_access_token
 
 auth_router = APIRouter()
 

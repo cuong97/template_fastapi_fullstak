@@ -1,8 +1,8 @@
 from pydantic import Field, constr, validator
 
-from backend.app.common.util import validate_unique
-from backend.app.models.charger_model import ChargerModel
-from backend.app.schemas.base import BaseModelSchemas
+from app.common.util import validate_unique
+from app.models.charger_model import ChargerModel
+from app.schemas.base import BaseModelSchemas
 
 
 class ChargerModelBase(BaseModelSchemas):

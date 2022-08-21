@@ -1,6 +1,6 @@
-from backend.app.config import settings
-from backend.tests.base_test import BaseTestCase
-from backend.tests.factories.charger_model import ChargerModelFactory
+from app.config import settings
+from tests.base_test import BaseTestCase
+from tests.factories.charger_model import ChargerModelFactory
 
 
 class TestChargerModel(BaseTestCase):

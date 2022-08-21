@@ -4,12 +4,12 @@ from fastapi import Depends
 from fastapi.routing import APIRouter
 from sqlalchemy.orm import Session
 
-from backend.app.common.database import get_db
-from backend.app.common.logger import logger
-from backend.app.crud.charger_model_crud import charger_model_crud
-from backend.app.schemas.charger_model import ChargerModelCreate, ChargerModelResponse
-from backend.app.schemas.response import resp
-from backend.app.common.handle_error import NotFoundException
+from app.common.database import get_db
+from app.common.logger import logger
+from app.crud.charger_model_crud import charger_model_crud
+from app.schemas.charger_model import ChargerModelCreate, ChargerModelResponse
+from app.schemas.response import resp
+from app.common.handle_error import NotFoundException
 
 charger_model_router = APIRouter()
 
