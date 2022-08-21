@@ -3,8 +3,8 @@ from typing import Union
 
 from app.common import handle_error
 from app.common.database import get_db
-from app.config import settings
 from app.crud.user_crud import user_crud
+from env_settings import env_settings
 from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer, SecurityScopes
 from jose import JWTError, jwt
@@ -12,7 +12,7 @@ from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
 oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.env_settings.api_prefix}/authentication/login"
+    tokenUrl=f"{env_settings.api_prefix}/authentication/login"
 )
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -57,8 +57,8 @@ def create_access_token(
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(
         to_encode,
-        settings.EnvSettings.jwt_private_key,
-        algorithm=settings.EnvSettings.jwt_algorithm,
+        env_settings.jwt_private_key,
+        algorithm=env_settings.jwt_algorithm,
     )
     return encoded_jwt
 
@@ -74,8 +74,8 @@ async def get_current_user(
     try:
         payload = jwt.decode(
             token,
-            settings.EnvSettings.jwt_private_key,
-            algorithms=[settings.EnvSettings.jwt_algorithm],
+            env_settings.jwt_private_key,
+            algorithms=[env_settings.jwt_algorithm],
         )
         username: str = payload.get("sub")
         if username is None:

@@ -1,10 +1,10 @@
-from app.config.settings import setting
+from app.config.settings import yml_setting
 from fastapi import Depends
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-env_yml = setting.get_config_env()
+env_yml = yml_setting.get_config_env()
 engine = create_engine(env_yml.get("DB_URL"))
 
 db_session = scoped_session(

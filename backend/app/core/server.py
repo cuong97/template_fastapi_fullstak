@@ -1,6 +1,6 @@
 from app.common.handle_error import APIException
-from app.config.settings import env_settings
 from app.router.v1_router import api_v1_router
+from env_settings import env_settings
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware

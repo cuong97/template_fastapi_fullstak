@@ -1,6 +1,6 @@
 from app.common.logger import logger
-from app.config.settings import env_settings
 from app.core.server import create_app
+from env_settings import env_settings
 
 app = create_app()
 

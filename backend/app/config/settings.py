@@ -1,19 +1,7 @@
 import os
 
 from app.config import config
-from pydantic import BaseSettings
-
-
-class EnvSettings(BaseSettings):
-    jwt_private_key: str = "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS"
-    jwt_algorithm: str = "HS256"
-    access_token_expires_minutes: int = 60
-    environment: str = "local"
-    api_prefix: str = "/api"
-    title: str = "Template FastApi"
-    description: str = "Template fast api"
-    version: str = "0.1.0"
-    origins: list = ["*"]
+from env_settings import env_settings
 
 
 class YmlSettings:
@@ -31,5 +19,4 @@ class YmlSettings:
         return yml.yml_config
 
 
-env_settings = EnvSettings()
-setting = YmlSettings(env=env_settings.environment)
+yml_setting = YmlSettings(env=env_settings.environment)
