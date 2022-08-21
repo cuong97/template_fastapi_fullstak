@@ -1,5 +1,7 @@
+from datetime import datetime
+
 from app.common.database import DBBaseCustom
-from sqlalchemy import DATETIME, Column, String
+from sqlalchemy import Column, DateTime, String
 
 
 class User(DBBaseCustom):
@@ -11,7 +13,13 @@ class User(DBBaseCustom):
     id = Column(String(255), unique=True, index=True, primary_key=True)
     username = Column(String(255), unique=True, index=True)
     hash_password = Column(String(255))
-    creation = Column(DATETIME)
-    modified = Column(DATETIME)
     owner = Column(String(255))
-    role_name = Column(String(100))
+    role_name = Column(String(255))
+    email = Column(String(255))
+    address = Column(String(255))
+    creation = Column(DateTime, default=datetime.utcnow())
+    modified = Column(
+        DateTime,
+        default=datetime.utcnow(),
+        onupdate=datetime.utcnow(),
+    )
