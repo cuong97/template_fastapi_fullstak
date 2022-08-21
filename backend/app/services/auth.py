@@ -7,14 +7,13 @@ from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from app.common import handle_error
-from app.common.database import get_db
-from app.config import settings
-from app.config.settings import ALGORITHM, SECRET_KEY
-from app.crud.user_crud import user_crud
+from backend.app.common import handle_error
+from backend.app.common.database import get_db
+from backend.app.config import settings
+from backend.app.crud.user_crud import user_crud
 
 oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.API_PREFIX}/authentication/login"
+    tokenUrl=f"{settings.EnvSettings.api_prefix}/authentication/login"
 )
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -57,7 +56,7 @@ def create_access_token(
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, settings.EnvSettings.jwt_private_key, algorithm=settings.EnvSettings.jwt_algorithm)
     return encoded_jwt
 
 
@@ -70,7 +69,7 @@ async def get_current_user(
     This function is used for getting authenticated user.
     """
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.EnvSettings.jwt_private_key, algorithms=[settings.EnvSettings.jwt_algorithm])
         username: str = payload.get("sub")
         if username is None:
             raise handle_error.UnAuthorizedException()
@@ -79,11 +78,7 @@ async def get_current_user(
     user = await user_crud.get(db, username)
     if not user:
         raise handle_error.UnAuthenticatedException()
-    if security_scopes.scopes and not user.role_name:
-        raise handle_error.UnAuthorizedException(
-            message="Not enough permissions",
-        )
-    if security_scopes.scopes and user.role_name not in security_scopes.scopes:
+    if security_scopes.scopes and (not user.role_name or user.role_name not in security_scopes.scopes):
         raise handle_error.UnAuthorizedException(
             message="Not enough permissions",
         )

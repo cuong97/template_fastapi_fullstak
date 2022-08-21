@@ -26,7 +26,7 @@ async def get_users(
     return users
 
 
-@user_router.post("/create")
+@user_router.post("/")
 async def create_user(
     user: UserCreate,
     current_user: User = Security(get_current_user, scopes=["admin"]),
@@ -40,7 +40,7 @@ async def create_user(
     return resp.success(data=user)
 
 
-@user_router.get("/")
+@user_router.get("/get_current_user")
 async def get_current_user(
     current_user: User = Depends(get_current_user),
 ):

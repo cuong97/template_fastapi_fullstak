@@ -1,26 +1,21 @@
 import os
-from pathlib import Path
-
-from dotenv import load_dotenv
-
+from pydantic import BaseSettings
 from backend.app.config import config
 
-env_path = Path(".") / ".env"
-load_dotenv(dotenv_path=env_path)
-SECRET_KEY = os.getenv(
-    "JWT_PRIVATE_KEY",
-    "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS",
-)
-ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
-ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRES_IN", "60")
-ENVIRONMENT = os.getenv("ENVIRONMENT")
 
-API_PREFIX = "/api"
-
-BASE_PATH = os.getenv("BASE_PATH")
+class EnvSettings(BaseSettings):
+    jwt_private_key: str = "LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS"
+    jwt_algorithm: str = "HS256"
+    access_token_expires_minutes: int = 60
+    environment: str = "local"
+    api_prefix: str = f"/api/"
+    title: str = "Template FastApi"
+    description: str = "Template fast api"
+    version: str = "0.1.0"
+    origins: list = ["*"]
 
 
-class Settings:
+class YmlSettings:
     def __init__(self, env):
         self.env = env
 
@@ -35,7 +30,7 @@ class Settings:
         return yml.yml_config
 
 
-if ENVIRONMENT:
-    setting = Settings(env=ENVIRONMENT)
+if EnvSettings.environment:
+    setting = YmlSettings(env=EnvSettings.environment)
 else:
-    setting = Settings(env="default")
+    setting = YmlSettings(env="default")
