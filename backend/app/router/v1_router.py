@@ -12,7 +12,8 @@ api_v1_router.include_router(router_index)
 
 # router charger model
 api_v1_router.include_router(
-    charger_model_router, prefix=f"{settings.env_settings.api_prefix}/charger-model"
+    charger_model_router,
+    prefix=f"{settings.env_settings.api_prefix}/charger-model",
 )
 
 api_v1_router.include_router(

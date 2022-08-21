@@ -1,4 +1,5 @@
 alembic==1.8.1
+asyncmy
 factory-boy==3.2.1
 fastapi==0.78.0
 passlib==1.7.4
@@ -8,4 +9,3 @@ pytest==7.1.2
 python-jose==3.3.0
 SQLAlchemy==1.4.39
 uvicorn==0.18.2
-asyncmy

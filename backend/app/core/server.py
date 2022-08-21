@@ -1,8 +1,7 @@
-from app.common.database import DBBaseCustom, engine
 from app.common.handle_error import APIException
 from app.config.settings import env_settings
 from app.router.v1_router import api_v1_router
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 
@@ -16,7 +15,6 @@ def create_app() -> FastAPI:
         title=env_settings.title,
         description=env_settings.description,
         version=env_settings.version,
-        # docs_url=None,
     )
 
     register_cors(app)
@@ -65,7 +63,7 @@ def register_exception(app: FastAPI) -> None:
     """
 
     @app.exception_handler(APIException)
-    async def unicorn_exception_handler(request: Request, exc: APIException):
+    async def unicorn_exception_handler(exc: APIException):
         return JSONResponse(
             status_code=exc.http_status,
             content={"message": f"{exc.message}"},

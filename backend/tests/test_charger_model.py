@@ -1,4 +1,3 @@
-from app.config import settings
 from tests.base_test import BaseTestCase
 from tests.factories.charger_model import ChargerModelFactory
 
@@ -9,7 +8,7 @@ class TestChargerModel(BaseTestCase):
         ChargerModelFactory.create()
 
     def test_list(self):
-        response = self.client.get(f"{settings.EnvSettings.api_prefix}/charger-models")
+        response = self.client.get(f"{self.api_prefix}/charger-models")
         res = response.json()
         assert response.status_code == 200
         assert len(res["data"]) == 1
