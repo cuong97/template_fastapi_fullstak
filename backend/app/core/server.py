@@ -4,7 +4,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 from backend.app.common.database import DBBaseCustom, engine
 from backend.app.common.handle_error import APIException
-from backend.app.config.settings import EnvSettings
+from backend.app.config.settings import env_settings
 from backend.app.router.v1_router import api_v1_router
 
 
@@ -14,10 +14,10 @@ def create_app() -> FastAPI:
     :return:
     """
     app = FastAPI(
-        title=EnvSettings.title,
-        description=EnvSettings.description,
-        version=EnvSettings.version,
-        docs_url=None,
+        title=env_settings.title,
+        description=env_settings.description,
+        version=env_settings.version,
+        # docs_url=None,
     )
 
     register_cors(app)
@@ -48,7 +48,7 @@ def register_cors(app: FastAPI) -> None:
     """
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=EnvSettings.origins,
+        allow_origins=env_settings.origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

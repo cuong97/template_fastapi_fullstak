@@ -8,7 +8,7 @@ class EnvSettings(BaseSettings):
     jwt_algorithm: str = "HS256"
     access_token_expires_minutes: int = 60
     environment: str = "local"
-    api_prefix: str = f"/api/"
+    api_prefix: str = f"/api"
     title: str = "Template FastApi"
     description: str = "Template fast api"
     version: str = "0.1.0"

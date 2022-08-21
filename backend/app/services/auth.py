@@ -13,7 +13,7 @@ from backend.app.config import settings
 from backend.app.crud.user_crud import user_crud
 
 oauth2_scheme = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.EnvSettings.api_prefix}/authentication/login"
+    tokenUrl=f"{settings.env_settings.api_prefix}/authentication/login"
 )
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

@@ -9,19 +9,19 @@ from backend.app.config import settings
 api_v1_router = APIRouter()
 
 # router index
-api_v1_router.include_router(router_index, prefix=f"{settings.EnvSettings.api_prefix}")
+api_v1_router.include_router(router_index, prefix=f"{settings.env_settings.api_prefix}")
 
 # router charger model
 api_v1_router.include_router(
-    charger_model_router, prefix=f"{settings.EnvSettings.api_prefix}/charger-model"
+    charger_model_router, prefix=f"{settings.env_settings.api_prefix}/charger-model"
 )
 
 api_v1_router.include_router(
     auth_router,
-    prefix=f"{settings.EnvSettings.api_prefix}/authentication",
+    prefix=f"{settings.env_settings.api_prefix}/authentication",
 )
 
 api_v1_router.include_router(
     user_router,
-    prefix=f"{settings.EnvSettings.api_prefix}/user",
+    prefix=f"{settings.env_settings.api_prefix}/user",
 )
