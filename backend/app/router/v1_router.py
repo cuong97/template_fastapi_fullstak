@@ -9,7 +9,7 @@ from backend.app.config import settings
 api_v1_router = APIRouter()
 
 # router index
-api_v1_router.include_router(router_index, prefix=f"{settings.env_settings.api_prefix}")
+api_v1_router.include_router(router_index)
 
 # router charger model
 api_v1_router.include_router(

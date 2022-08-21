@@ -26,7 +26,7 @@ def create_app() -> FastAPI:
 
     @app.on_event("startup")
     async def startup_event():
-        DBBaseCustom.metadata.create_all(bind=engine)
+        pass
 
     return app
 
