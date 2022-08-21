@@ -30,7 +30,5 @@ class YmlSettings:
         return yml.yml_config
 
 
-if EnvSettings.environment:
-    setting = YmlSettings(env=EnvSettings.environment)
-else:
-    setting = YmlSettings(env="default")
+env_settings = EnvSettings()
+setting = YmlSettings(env=env_settings.environment)

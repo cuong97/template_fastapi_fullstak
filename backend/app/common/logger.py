@@ -14,8 +14,8 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s.%(msecs)03d - %(name)s : %(levelname)s | %(message)s",
     datefmt="%Y-%m-%d %H:%M:%S",
-    filename=log_path,
-    encoding="utf-8",
+    # filename=log_path,
+    # encoding="utf-8",
 )
 
 logger = logging.getLogger("API")
