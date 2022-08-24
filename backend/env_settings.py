@@ -11,6 +11,7 @@ class EnvSettings(BaseSettings):
     description: str = "Template fast api"
     version: str = "0.1.0"
     origins: list = ["*"]
+    redis_url: str = "redis://localhost:6379"
 
 
 env_settings = EnvSettings()

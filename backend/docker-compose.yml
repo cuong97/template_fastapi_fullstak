@@ -40,7 +40,7 @@ services:
       - "6379:6379"
     restart: on-failure
     volumes:
-      - /path/to/redis😕bitnami/redis/data
+      - $PWD/redis:/bitnami/redis/data
 
 volumes:
   mysql_db:

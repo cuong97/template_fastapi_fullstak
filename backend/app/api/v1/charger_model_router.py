@@ -1,25 +1,28 @@
 from typing import List
 
-from app.common.database import get_db
+from app.common.database import get_async_session, get_db
 from app.common.handle_error import NotFoundException
 from app.common.logger import logger
+from app.crud.charger_model_crud import ChargerModelCrudAsync as charger_async
 from app.crud.charger_model_crud import charger_model_crud
 from app.schemas.charger_model import ChargerModelCreate, ChargerModelResponse
 from app.schemas.response import resp
 from fastapi import Depends
 from fastapi.routing import APIRouter
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import Session
 
 charger_model_router = APIRouter()
 
 
 @charger_model_router.get("s", response_model=List[ChargerModelResponse])
-async def list_charger_model(db: Session = Depends(get_db)):
+async def list_charger_model(db: AsyncSession = Depends(get_async_session)):
     """
     This endpoint interacts with the list charger-model
     """
     logger.info("endpoint list charger-model")
     results = await charger_model_crud.list(db)
+    await charger_async(session=db).get_first()
     return resp.success(data=results)
 
 

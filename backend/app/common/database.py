@@ -1,6 +1,7 @@
 from app.config.settings import yml_setting
 from fastapi import Depends
 from sqlalchemy import create_engine
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -13,6 +14,16 @@ db_session = scoped_session(
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 DBBaseCustom = declarative_base()
+
+async_engine = create_async_engine(env_yml.get("ALEMBIC_DB_URL"))
+async_session = sessionmaker(
+    bind=async_engine, class_=AsyncSession, expire_on_commit=False
+)
+
+
+async def get_async_session() -> AsyncSession:
+    async with async_session() as session:
+        yield session
 
 
 def get_db():
