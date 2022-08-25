@@ -16,13 +16,16 @@ charger_model_router = APIRouter()
 
 
 @charger_model_router.get("s", response_model=List[ChargerModelResponse])
-async def list_charger_model(db: AsyncSession = Depends(get_async_session)):
+async def list_charger_model(
+    db_async: AsyncSession = Depends(get_async_session),
+    db: Session = Depends(get_db),
+):
     """
     This endpoint interacts with the list charger-model
     """
     logger.info("endpoint list charger-model")
     results = await charger_model_crud.list(db)
-    await charger_async(session=db).get_first()
+    await charger_async(session=db_async).get_first()
     return resp.success(data=results)
 
 
