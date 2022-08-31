@@ -3,7 +3,7 @@ from logging.config import fileConfig
 
 from alembic import context
 from app.common.database import DBBaseCustom
-from app.config.settings import setting
+from app.config.settings import yml_setting
 from app.models import charger_model, user
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
@@ -44,7 +44,7 @@ def run_migrations_offline() -> None:
     script output.
 
     """
-    env_yml = setting.get_config_env()
+    env_yml = yml_setting.get_config_env()
     url = env_yml.get("ALEMBIC_DB_URL")
     context.configure(
         url=url,
@@ -71,7 +71,7 @@ async def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
-    env_yml = setting.get_config_env()
+    env_yml = yml_setting.get_config_env()
     engine = create_engine(env_yml.get("ALEMBIC_DB_URL"))
     connectable = AsyncEngine(engine)
 
