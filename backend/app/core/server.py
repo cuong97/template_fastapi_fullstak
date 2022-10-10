@@ -1,6 +1,9 @@
 import redis.asyncio as redis
 from app.common.constants import TOKEN_USER
+from app.common.database import engine
 from app.common.handle_error import APIException
+from app.models.charger_model import ChargerModel
+from app.models.user import User
 from app.router.v1_router import api_v1_router
 from env_settings import env_settings
 from fastapi import FastAPI
@@ -74,7 +77,7 @@ def create_app() -> FastAPI:
         description=env_settings.description,
         version=env_settings.version,
     )
-
+    create_table()
     register_cors(app)
     register_router(app)
     register_exception(app)
@@ -93,6 +96,11 @@ def create_app() -> FastAPI:
         await app.redis.close()
 
     return app
+
+
+def create_table():
+    User.__table__.create(engine, checkfirst=True)
+    ChargerModel.__table__.create(engine, checkfirst=True)
 
 
 def register_router(app: FastAPI) -> None:

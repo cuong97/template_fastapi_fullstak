@@ -12,6 +12,9 @@ class EnvSettings(BaseSettings):
     version: str = "0.1.0"
     origins: list = ["*"]
     redis_url: str = "redis://localhost:6379"
+    database_url: str = "mysql+pymysql://root:123456@localhost:3306/db"
+    database_test_url: str = "mysql+pymysql://root:123456@localhost:3306/db_test"
+    alembic_db_url: str = "mysql+asyncmy://root:123456@localhost:3306/db"
 
 
 env_settings = EnvSettings()

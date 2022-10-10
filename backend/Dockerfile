@@ -5,7 +5,7 @@ COPY ./requirements.txt /backend/requirements.txt
 RUN pip install --upgrade pip && pip install --no-cache-dir --upgrade -r /backend/requirements.txt
 COPY . /backend
 ENV PYTHONPATH=/backend/app
-EXPOSE 8000
+EXPOSE 8001/tcp
 
 RUN chmod +x run.sh
 CMD ["./run.sh"]

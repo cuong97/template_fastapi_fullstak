@@ -50,7 +50,7 @@ services:
     image: fastapi_api
 #    command: uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     ports:
-      - 8000:8000
+      - "8001:80"
     volumes:
       - fastapi_api:/backend
     depends_on:
@@ -58,7 +58,7 @@ services:
       - redis
     environment:
       - DATABASE_URL=mysql+pymysql://root:123456@mysql_db:3306/db
-      - DATABASE_TEST_URL=postgresql://postgres:password@mysql_db:3306/db_test
+      - DATABASE_TEST_URL=mysql+pymysql://root:123456@mysql_db:3306/db_test
       - ALEMBIC_DB_URL=mysql+asyncmy://root:123456@mysql_db:3306/db
       - REDIS_URL=redis://localhost:6379
     restart: always

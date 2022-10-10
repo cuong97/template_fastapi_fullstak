@@ -7,11 +7,13 @@ from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-if "pytest" in sys.modules:
-    yml_setting.env = "local_test"
+from env_settings import env_settings
 
-env_yml = yml_setting.get_config_env()
-engine = create_engine(env_yml.get("DB_URL"))
+
+if "pytest" in sys.modules:
+    engine = create_engine(env_settings.database_test_url)
+else:
+    engine = create_engine(env_settings.database_url)
 
 db_session = scoped_session(
     sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -20,7 +22,7 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 DBBaseCustom = declarative_base()
 
-async_engine = create_async_engine(env_yml.get("ALEMBIC_DB_URL"))
+async_engine = create_async_engine(env_settings.alembic_db_url)
 async_session = sessionmaker(
     bind=async_engine, class_=AsyncSession, expire_on_commit=False
 )

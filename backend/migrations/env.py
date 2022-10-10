@@ -9,6 +9,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import AsyncEngine
 
+from env_settings import env_settings
+
 config = context.config
 
 charger_model = charger_model
@@ -71,8 +73,7 @@ async def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
-    env_yml = yml_setting.get_config_env()
-    engine = create_engine(env_yml.get("ALEMBIC_DB_URL"))
+    engine = create_engine(env_settings.alembic_db_url)
     connectable = AsyncEngine(engine)
 
     async with connectable.connect() as connection:
