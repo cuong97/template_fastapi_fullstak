@@ -13,8 +13,9 @@ else
 fi
 
 export APP_MODULE=${APP_MODULE-main:app}
-export HOST=${HOST:-127.0.0.1}
-export PORT=${PORT:-8001}
+echo $APP_MODULE
+export HOST=${HOST:-0.0.0.0}
+export PORT=${PORT:-8000}
 
 # run gunicorn
 exec uvicorn $APP_MODULE --reload --workers 1 --host $HOST --port $PORT

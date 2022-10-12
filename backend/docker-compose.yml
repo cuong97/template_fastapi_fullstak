@@ -37,7 +37,7 @@ services:
 #    restart: on-failure
 
   redis:
-    container_name: redis_container
+    container_name: redis
     hostname: redis
     image: redis:latest
     command: --port 6379
@@ -57,9 +57,10 @@ services:
       context: .
       dockerfile: Dockerfile
     image: fastapi_api
+    container_name: fastapi_api
 #    command: uvicorn main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     ports:
-      - "8001:80"
+      - "8000:8000"
     volumes:
       - fastapi_api:/backend
     depends_on:
@@ -71,7 +72,7 @@ services:
       - DATABASE_URL=mysql+pymysql://root:123456@mysql_db:3306/db
       - DATABASE_TEST_URL=mysql+pymysql://root:123456@mysql_db:3306/db_test
       - ALEMBIC_DB_URL=mysql+asyncmy://root:123456@mysql_db:3306/db
-      - REDIS_URL=redis://localhost:6379
+      - REDIS_URL=redis://redis:6379
     restart: always
 volumes:
   mysql_db:
