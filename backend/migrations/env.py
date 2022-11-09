@@ -4,7 +4,7 @@ from logging.config import fileConfig
 from alembic import context
 from app.common.database import DBBaseCustom
 from app.config.settings import yml_setting
-from app.models import charger_model, user
+from app.models import charger_model, user, items
 from sqlalchemy import create_engine
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import AsyncEngine
@@ -15,6 +15,7 @@ config = context.config
 
 charger_model = charger_model
 user = user
+item = items
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

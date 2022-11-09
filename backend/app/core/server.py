@@ -77,7 +77,6 @@ def create_app() -> FastAPI:
         description=env_settings.description,
         version=env_settings.version,
     )
-    create_table()
     register_cors(app)
     register_router(app)
     register_exception(app)
@@ -96,11 +95,6 @@ def create_app() -> FastAPI:
         await app.redis.close()
 
     return app
-
-
-def create_table():
-    User.__table__.create(engine, checkfirst=True)
-    ChargerModel.__table__.create(engine, checkfirst=True)
 
 
 def register_router(app: FastAPI) -> None:

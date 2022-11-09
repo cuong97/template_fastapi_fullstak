@@ -1,7 +1,9 @@
 from datetime import datetime
 
+from sqlalchemy.orm import relationship
+
 from app.common.database import DBBaseCustom
-from sqlalchemy import Column, DateTime, String
+from sqlalchemy import Column, DateTime, String, Integer
 
 
 class User(DBBaseCustom):
@@ -10,7 +12,7 @@ class User(DBBaseCustom):
     """
 
     __tablename__ = "user"
-    id = Column(String(255), unique=True, index=True, primary_key=True)
+    id = Column(Integer, primary_key=True, index=True, unique=True)
     username = Column(String(255), unique=True, index=True)
     hash_password = Column(String(255))
     owner = Column(String(255))
@@ -23,3 +25,4 @@ class User(DBBaseCustom):
         default=datetime.utcnow(),
         onupdate=datetime.utcnow(),
     )
+    items = relationship("Item", back_populates="user")
